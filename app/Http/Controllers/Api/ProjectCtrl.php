@@ -72,6 +72,7 @@ class ProjectCtrl extends Controller
             // Nếu không tìm thấy project thì tạo project mới
             $project->name = $request->name;
             $project->content = $request->description;
+            $project->startline = $request->startline;
             $project->deadline = $request->deadline;
             $project->team_id = $request->team_id;
             date_default_timezone_set('Asia/Ho_Chi_Minh');

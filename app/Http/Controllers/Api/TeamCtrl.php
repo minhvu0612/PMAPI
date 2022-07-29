@@ -47,6 +47,8 @@ class TeamCtrl extends Controller
         }
         return response()->json([
             'alert' => "success",
+            'data' => $arr,
+            'id' => $team->id,
         ]);
     }
     // Lấy dữ liệu tất cả các team
@@ -55,6 +57,14 @@ class TeamCtrl extends Controller
         return response()->json([
             'alert' => 200,
             'data' => $teams, 
+        ]);
+    }
+    // Lấy dữ liệu tất cả các người dùng trong project
+    public function GetUits(){
+        $uits = Uit::all(); // Lấy tất cả các project
+        return response()->json([
+            'alert' => 200,
+            'data' => $uits, 
         ]);
     }
     // Lấy dữ liệu một team
@@ -68,9 +78,9 @@ class TeamCtrl extends Controller
     // Cập nhật team
     public function UpdateTeam(Request $request)
     {
-        if (Team::where('name', '=', $request->name)->exists()) {
-            // Nếu không tìm thấy team thì tạo team mới
-            $team = new Team();
+        $team = Team::where('name', '=', $request->name)->get();
+        if ($team != null) {
+            // Cập nhật team
             $team->name = $request->name;
             $team->carry = 0;
             date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -100,6 +110,17 @@ class TeamCtrl extends Controller
         return response()->json([
             'alert' => "not existed",
         ]);
-        
+    }
+
+    // Xóa một team
+    public function DeleteTeam($id){
+        DB::table('teams')->delete($id); // Xóa team
+        if (Project::where('team_id', $id)->exists()) {
+            // Gửi thông báo team đã tồn tại
+            DB:table('projects')->where('team_id', $id);
+        }
+        return response()->json([
+            'alert' => "success",
+        ]);
     }
 }
