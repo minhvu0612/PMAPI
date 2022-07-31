@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Api\Activity;
+use App\Models\Api\ManageProject;
 
 class ActivityCtrl extends Controller
 {
@@ -13,8 +14,17 @@ class ActivityCtrl extends Controller
     public function GetActivities(){
         $activities = Activity::all();
         return response()->json([
-            'alert' => 200,
+            'alert' => "success",
             'data' => $activities, 
+        ]);
+    }
+
+    
+    public function GetActProject(){
+        $pms = ManageProject::all();
+        return response()->json([
+            'alert' => "success",
+            'data' => $pms, 
         ]);
     }
 }

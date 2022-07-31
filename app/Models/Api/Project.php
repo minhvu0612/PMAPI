@@ -14,7 +14,9 @@ class Project extends Model
         'startline',
         'deadline',
         'content',
-        'team_id',
+        'teamcode',
+        'time',
+        'state',
         'created_at',
         'updated_at',
     ];
@@ -23,6 +25,6 @@ class Project extends Model
 
     public function team()
     {
-        return $this->belongsTo(Team::class, 'team_id', 'id');
+        return $this->belongsTo(Team::class, 'teamcode', 'code');
     }
 }

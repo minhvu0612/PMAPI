@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeams extends Migration
+class CreateRanks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTeams extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('ranks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string("code")->primary();
-            $table->string('name');
-            $table->integer('carry');
+            $table->increments('id')->unsigned();
+            $table->string('teamcode');
+            $table->integer('vote');
+            $table->foreign('teamcode')->references('code')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateTeams extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('ranks');
     }
 }

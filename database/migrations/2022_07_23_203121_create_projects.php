@@ -14,13 +14,16 @@ class CreateProjects extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->engine = 'InnoDB';
+            $table->string("code")->primary();
             $table->string('name');
             $table->string('startline');
             $table->string('deadline');
+            $table->string('time');
             $table->string('content');
-            $table->integer('team_id')->unsigned();
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->integer('state');
+            $table->string('teamcode')->nullable();
+            $table->foreign('teamcode')->references('code')->on('teams');
             $table->timestamps();
         });
     }

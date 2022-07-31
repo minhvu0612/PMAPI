@@ -5,24 +5,19 @@ namespace App\Models\Api;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Uit extends Model
+class Rank extends Model
 {
     use HasFactory;
-    protected $table="userinteams";
+    protected $table="ranks";
     protected $fillable = [
         'teamcode',
-        'user_id',
+        'vote',
         'created_at',
         'updated_at',
     ];
 
-    protected $with = ['user', 'team'];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
+    protected $with = ['team'];
+    
     public function team()
     {
         return $this->belongsTo(Team::class, 'teamcode', 'code');

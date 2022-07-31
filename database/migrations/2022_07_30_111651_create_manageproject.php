@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserinteams extends Migration
+class CreateManageproject extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateUserinteams extends Migration
      */
     public function up()
     {
-        Schema::create('userinteams', function (Blueprint $table) {
+        Schema::create('manageproject', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('teamcode');
+            $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->foreign('teamcode')->references('code')->on('teams')->onDelete('cascade');
+            $table->string('projectcode')->nullable();
+            $table->string('state');
+            $table->foreign('projectcode')->references('code')->on('projects');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ class CreateUserinteams extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userinteams');
+        Schema::dropIfExists('manageproject');
     }
 }
