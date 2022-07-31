@@ -31,6 +31,7 @@ Route::post('project/v1/signup', [UserCtrl::class, 'CreateNewUser']);
 Route::post('project/v1/login', [UserCtrl::class, 'Login']);
 Route::get('project/v1/get_user/{id}', [UserCtrl::class, 'GetUser']);
 Route::get('project/v1/get_users', [UserCtrl::class, 'GetUsers']);
+Route::post('project/v1/update_user', [UserCtrl::class, 'UpdateUser']);
 
 // team
 Route::post('project/v1/team/add', [TeamCtrl::class, 'CreateNewTeam']);

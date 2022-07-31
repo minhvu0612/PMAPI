@@ -38,7 +38,7 @@ class ProjectCtrl extends Controller
         $project->updated_at = date("Y-m-d H:i:s");
         $project->save();
         // Cập nhật thông báo 
-        DB::table('teams')->where('code', $request->teamcode)->update(array('carry' => 1));
+        DB::table('teams')->where('code', $request->teamcode)->update(['carry' => 1]);
         // Thêm hoạt động tạo team
         $activity = new ManageProject();
         $activity->user_id = $request->user_id;
@@ -99,7 +99,7 @@ class ProjectCtrl extends Controller
     public function ConfirmProject(Request $request){
         $project = Project::where('code', $request->code)->first();
         DB::table('projects')->where('code', $request->code)->update(['state' => 2]);
-        DB::table('teams')->where('code', $project->teamcode)->update(array('carry' => 0));
+        DB::table('teams')->where('code', $project->teamcode)->update(['carry' => 0]);
         return response()->json([
             'alert' => "success", 
         ]);
@@ -118,8 +118,8 @@ class ProjectCtrl extends Controller
             $project = Project::where('code', $request->code)->first();
             if ($project != null){
                 // Cập nhật team đảm nhiệm
-                DB::table('teams')->where('code', $project->teamcode)->update(array('carry' => 0));
-                DB::table('teams')->where('code', $request->teamcode)->update(array('carry' => 1));
+                DB::table('teams')->where('code', $project->teamcode)->update(['carry' => 0]);
+                DB::table('teams')->where('code', $request->teamcode)->update(['carry' => 1]);
                 // Cập nhật project
                 DB::table('projects')->where('code', $request->code)
                 ->update([

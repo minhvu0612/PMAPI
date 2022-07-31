@@ -76,9 +76,15 @@ class UserCtrl extends Controller
 
     // Cập nhật tài khoản
     public function UpdateUser(Request $request){
+        $user = User::where('id', $request->id)->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+        ]);
+        $x = User::find($request->id);
         return response()->json([
-            'alert' => 200,
-            'data' => User::find($request->id),
+            'alert' => "success",
+            'data' => $x,
         ]);
     }
 }
