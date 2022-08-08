@@ -104,8 +104,12 @@ class TeamCtrl extends Controller
                 $activity->save();
                 
             }
-            // Xóa tất cả các thành viên trong team
-            DB::table('userinteams')->where('teamcode', $request->code)->delete();
+            $remove = [];
+            $remove = json_decode($request->remove);
+            for ($x = 0; $x < count($remove); $x++){
+                // Xóa tất cả các thành viên trong team
+                DB::table('userinteams')->where('teamcode', $request->code)->where('user_id', $remove[$x])->delete();
+            }
             // Thêm nhân viên vào team
             $arr = [];
             $arr = json_decode($request->arr);
